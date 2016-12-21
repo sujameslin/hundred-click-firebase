@@ -7,18 +7,16 @@ import {
   ListView,
   TouchableHighlight,
   Dimensions
-} from 'react-native'
+} from 'react-native';
 
-const {
-  StateUtils: NavigationStateUtils
-} = NavigationExperimental;
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const {height, width} = Dimensions.get('window')
 import appStyles from '../styles/app';
 import {connect} from 'react-redux';
 
 // Routes
-import {routes, exampleRoutes} from '../routes'
+import {routes, exampleRoutes} from '../routes';
 
 export class Home extends React.Component {
   constructor(props) {
@@ -31,7 +29,7 @@ export class Home extends React.Component {
 
     const routeRows = Object.keys(exampleRoutes)
                         .reduce((sum, name) => sum.concat({
-                          key: name, 
+                          key: name,
                           title: name.toUpperCase(),
                           route: routes[name]
                         }), []);

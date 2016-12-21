@@ -13,6 +13,7 @@
     "react-native": "0.39.2",
     "react-native-firestack": "^2.3.5",
     "react-native-gifted-spinner": "^0.1.0",
+    "react-native-loading-spinner-overlay": "^0.4.1",
     "react-native-vector-icons": "^3.0.0",
     "react-redux": "^5.0.1",
     "redux": "^3.6.0",

@@ -11,10 +11,12 @@ module.exports = StyleSheet.create({
     flex: 9,
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+    marginLeft: 5,
+    marginRight: 5
   },
   textinput: {
     height: 40,
-    borderColor: 'red',
+    marginBottom: 5,
     borderWidth: 1
   },
   transparent_button: {

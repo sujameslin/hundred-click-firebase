@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import {
     AppRegistry,
@@ -12,10 +12,16 @@ import {
 import Button from '../components/button';
 import Header from '../components/header';
 import styles from '../styles/common-styles.js';
+import Login from './login';
 
 // let app = new Firebase('hundredclick.firebaseio.com');
 
 export default class signup extends Component {
+
+  static propTypes = {
+    navigator: PropTypes.object,
+    firestack: PropTypes.object
+  }
 
   constructor(props){
     super(props);
@@ -27,44 +33,28 @@ export default class signup extends Component {
     };
   }
 
-  signup(){
-
+  signup() {
     this.setState({
       loaded: false
     });
 
-    // app.createUser({
-    //   'email': this.state.email,
-    //   'password': this.state.password
-    // }, (error, userData) => {
-    //
-    //   if(error){
-    //     switch(error.code){
-    //
-    //       case "EMAIL_TAKEN":
-    //         alert("The new user account cannot be created because the email is already in use.");
-    //       break;
-    //
-    //       case "INVALID_EMAIL":
-    //         alert("The specified email is not a valid email.");
-    //       break;
-    //
-    //       default:
-    //         alert("Error creating user:");
-    //     }
-    //
-    //   }else{
-    //     alert('Your account was created!');
-    //   }
-    //
-    //   this.setState({
-    //     email: '',
-    //     password: '',
-    //     loaded: true
+    // const {firestack} = this.props;
+    // const { email, password } = this.state;
+    // firestack
+    //   .auth
+    //   .createUserWithEmail(email, password)
+    //   .then(user => {
+    //     alert('account is created!');
+    //     this.setState({
+    //       email: '',
+    //       password: '',
+    //       loaded: true
+    //     });
+    //   })
+    //   .catch(err => {
+    //     alert('An error occurred:' + err.code);
+    //     console.log('An error occurred', err);
     //   });
-    //
-    // });
-
   }
 
   goToLogin(){

@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -19,15 +13,16 @@ import Account from './src/pages/account';
 
 import Header from './src/components/header';
 
-// import Firebase from 'firebase';
-
-// let app = new Firebase('hundredclick.firebaseio.com');
+//import Firestack from 'react-native-firestack';
+import env from './config/environment';
 
 import styles from './src/styles/common-styles.js';
 
 export default class HundredClickFirebase extends Component {
   constructor(props){
     super(props);
+
+    // this.firestack = new Firestack(env.firestack);
     this.state = {
       component: null,
       loaded: false
@@ -69,7 +64,10 @@ export default class HundredClickFirebase extends Component {
           }}
           renderScene={(route, navigator) => {
             if(route.component){
-              return React.createElement(route.component, { navigator });
+              return React
+                .createElement(route.component, {
+                  navigator: navigator
+                });
             }
           }}
         />

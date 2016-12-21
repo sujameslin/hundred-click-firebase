@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import {
     AppRegistry,
@@ -23,6 +23,11 @@ import styles from '../styles/common-styles.js';
 
 export default class login extends Component {
 
+  /* static propTypes = {
+    navigator: PropTypes.object,
+    firestack: PropTypes.object
+  }*/
+
   constructor(props){
     super(props);
 
@@ -33,11 +38,14 @@ export default class login extends Component {
     }
   }
 
-  render(){
+  render() {
+    const props = this.props;
+
     return (
       <View style={styles.container}>
         <Header text="Login" loaded={this.state.loaded} />
         <View style={styles.body}>
+          <Text>{props.hello}</Text>
           <TextInput
             style={styles.textinput}
             onChangeText={(text) => this.setState({email: text})}
@@ -92,8 +100,6 @@ export default class login extends Component {
         });
       }
     });
-
-
   }
 
   goToSignup(){
