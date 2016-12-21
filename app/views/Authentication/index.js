@@ -9,9 +9,8 @@ import {
 import appStyles from '../../styles/app';
 import List from '../../components/List/List'
 
-import Signin from './Demos/Signin';
-import Anonymous from './Demos/Anonymous';
-import ErrorHandling from './Demos/ErrorHandling';
+import Signin from './pages/Signin';
+import Signup from './pages/Signup';
 
 export const Routes = {
   'signin': {
@@ -22,20 +21,8 @@ export const Routes = {
   },
   'signup': {
     route: {
-      title: 'Sign In',
-      Component: Signin
-    }
-  },
-  'anonymous': {
-    route: {
-      title: 'Anonymous login',
-      Component: Anonymous
-    }
-  },
-  'error_handling': {
-    route: {
-      title: 'Error handling',
-      Component: ErrorHandling
+      title: 'Sign Up',
+      Component: Signup
     }
   }
 }
@@ -68,8 +55,8 @@ export class Authentication extends React.Component {
 
   _onRowPress(rowData) {
     const rowKey = rowData.key;
-    const {actions} = this.props;
-    const {navigation} = actions;
+    const {actions: { navigation }} = this.props;
+
     navigation.push(rowKey, this.props);
   }
 }

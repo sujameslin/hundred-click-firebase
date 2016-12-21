@@ -132,6 +132,7 @@ export class FirestackNavigator extends React.Component {
 
   _lookupRoute(routeObject) {
     let key = routeObject.key || 'default';
+    console.log('Registered!', routes);
     return routes[key];
   }
 

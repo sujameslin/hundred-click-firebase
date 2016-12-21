@@ -8,11 +8,7 @@ import appStyles from './styles/app';
 
 import Home from './views/Home';
 import Authentication, { Routes as AuthRoutes } from './views/Authentication';
-/* import Database, { Routes as DatabaseRoutes } from './views/Database';
-import Messaging, { Routes as MessagingRoutes } from './views/Messaging';
-import Presence, { Routes as PresenceRoutes } from './views/Presence'
-import Analytics, { Routes as AnalyticsRoutes } from './views/Analytics';
-import Storage, { Routes as StorageRoutes } from './views/Storage';*/
+import HundredBox from './views/HundredBox';
 
 export type Route = {
   key: String,
@@ -27,6 +23,12 @@ export const exampleRoutes = {
       Component: Authentication
     },
     children: AuthRoutes
+  },
+  'hundredbox': {
+    route: {
+      title: 'Hundred Boxes',
+      Component: HundredBox
+    }
   }
 };
 

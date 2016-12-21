@@ -21,15 +21,12 @@ export class SignedIn extends React.Component {
   }
 
   componentWillMount() {
-    const {firestack} = this.props;
+    const { firestack } = this.props;
   }
 
-  signOut(evt) {
+  goHome(evt) {
     const {firestack} = this.props;
-    firestack.auth.signOut();
-    if (this.props.onSignout) {
-      this.props.onSignout();
-    }
+    alert('go home clicked');
   }
 
   componentWillUnmount() {
@@ -52,11 +49,11 @@ export class SignedIn extends React.Component {
 
                   </Text>
                 <Button
-                  onPress={this.signOut.bind(this)}
+                  onPress={this.goHome.bind(this)}
                   block
                   primary
                   textStyle={{color: '#FFFFFF'}}>
-                    <Text>Sign out</Text>
+                    <Text>Go to home</Text>
                 </Button>
             </CardItem>
          </Card>

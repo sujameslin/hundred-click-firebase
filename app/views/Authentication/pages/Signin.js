@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes as T }  from 'react';
 
 import {
   View,
@@ -12,6 +12,10 @@ import SignedIn from '../components/SignedIn';
 import appStyles from '../../../styles/app';
 
 export class Signin extends React.Component {
+  static propTypes = {
+    firestack: T.object,
+    actions: T.object
+  };
 
   constructor(props) {
     super(props);
@@ -24,18 +28,17 @@ export class Signin extends React.Component {
   }
 
   componentWillMount() {
-    const {firestack} = this.props;
+    const { firestack } = this.props;
 
     firestack.auth.listenForAuth((u) => {
       console.log('listenForAuth ->', u);
     });
   }
 
-  fillInFields() {
-    this.setState({
-      email: 'ari@fullstack.io',
-      password: '123456'
-    });
+  gotoSignup() {
+    const {actions: { navigation }} = this.props;
+
+    navigation.push('auth.signup', this.props);
   }
 
   loginWithEmail(evt) {
@@ -56,15 +59,6 @@ export class Signin extends React.Component {
       });
   }
 
-  onSignout() {
-    console.log('yay?', this.state);
-    this.setState({
-      user: null,
-      email: '',
-      password: ''
-    });
-  }
-
   componentWillUnmount() {
     const {firestack} = this.props;
     firestack.auth.unlistenForAuth();
@@ -78,7 +72,7 @@ export class Signin extends React.Component {
         <SignedIn
           user={user}
           firestack={firestack}
-          onSignout={this.onSignout.bind(this)} />
+        />
       )
     }
     return (
@@ -90,7 +84,9 @@ export class Signin extends React.Component {
                 <Icon name='ios-person' />
                 <Input
                   placeholder='EMAIL'
-                  value={email} />
+                  value={email}
+                  onChangeText={(text) => this.setState({email: text})}
+                />
               </InputGroup>
             </ListItem>
 
@@ -101,6 +97,7 @@ export class Signin extends React.Component {
                   placeholder='PASSWORD'
                   secureTextEntry={true}
                   value={password}
+                  onChangeText={(text) => this.setState({password: text})}
                 />
               </InputGroup>
             </ListItem>
@@ -118,8 +115,8 @@ export class Signin extends React.Component {
               <Button
                 block
                 info
-                onPress={this.fillInFields.bind(this)}>
-                  <Text>Fill forms with demo user info</Text>
+                onPress={this.gotoSignup.bind(this)}>
+                  <Text>Go to signup if you're new</Text>
               </Button>
             </ListItem>
           </List>
