@@ -21,7 +21,7 @@ export const Routes = {
   },
   'signup': {
     route: {
-      title: 'Sign Up',
+      title: 'Create new User',
       Component: Signup
     }
   }

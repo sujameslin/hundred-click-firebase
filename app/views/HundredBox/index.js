@@ -10,7 +10,7 @@ import { Text, Button, Icon } from 'native-base';
 
 import appStyles from '../../styles/app';
 
-const firebaseRefName = 'clicks';
+const firebaseRefName = 'boxes';
 
 export class HundredBox extends React.Component {
 
@@ -42,13 +42,14 @@ export class HundredBox extends React.Component {
     const ref = firestack.database.ref(firebaseRefName)
 
     ref
-    .orderByChild('createdAt')
-    .limitToLast(1)
+    //.orderByChild('createdAt')
+    //.limitToLast(1)
     .once('value')
     .then((snapshot) => {
       const data = snapshot.val();
-      for (last in data);
-      this.setState({ clicks: data[last] });
+      if (data && data.length) {
+        this.setState({ clicks: data });
+      }
     })
     .catch(() => {
       alert('fetch error');
@@ -59,8 +60,9 @@ export class HundredBox extends React.Component {
     const { firestack } = this.props;
     const { clicks } = this.state;
     firestack.database.ref(firebaseRefName)
-      .push()
-      .then(ref => ref.setAt(clicks))
+      .set(clicks)
+      //.push()
+      //.then(ref => ref.setAt(clicks))
       .catch(() => alert('error happend'));
   }
 

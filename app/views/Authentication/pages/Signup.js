@@ -104,15 +104,6 @@ export default class Signup extends React.Component {
                   <Text>Sign Up</Text>
               </Button>
             </ListItem>
-
-            <ListItem>
-              <Button
-                block
-                info
-                onPress={this.goBackToLogin.bind(this)}>
-                  <Text>Go back to signin if you already have account</Text>
-              </Button>
-            </ListItem>
           </List>
         </Content>
       </Container>
