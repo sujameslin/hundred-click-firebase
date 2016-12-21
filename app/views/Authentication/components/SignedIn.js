@@ -44,8 +44,8 @@ export class SignedIn extends React.Component {
         <Content>
            <Card>
               <CardItem >
-                  <Text>You are signed in</Text>
-                  <Text>{user.displayName}</Text>
+                  <Text>You are signed in with </Text>
+                  <Text>{user.email}</Text>
               </CardItem>
 
               <CardItem cardBody>

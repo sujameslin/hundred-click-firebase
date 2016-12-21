@@ -36,8 +36,8 @@ export class Signin extends React.Component {
     });
 
     firestack.auth.getCurrentUser()
-      .then(user => {
-        this.setState({ user });
+      .then(data => {
+        this.setState({ user: data.user });
       });
   }
 
@@ -51,11 +51,12 @@ export class Signin extends React.Component {
     const {firestack} = this.props;
     const { email, password } = this.state;
 
+    // Perform sign in with registered user in firebase
     firestack.auth.signInWithEmail(email, password)
-      .then(u => {
+      .then(data => {
         console.log('Signed in!', u);
         this.setState({
-          user: u,
+          user: data.user,
           email: '',
           password: ''
         });

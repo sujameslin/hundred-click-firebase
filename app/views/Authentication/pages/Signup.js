@@ -39,6 +39,8 @@ export default class Signup extends React.Component {
     const {firestack} = this.props;
     const { email, password } = this.state;
 
+    // Create new user in firebase
+
     firestack
       .auth
       .createUserWithEmail(email, password)

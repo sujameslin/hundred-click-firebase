@@ -34,6 +34,8 @@ export class HundredBox extends React.Component {
   loadData() {
     const {firestack} = this.props;
 
+    // Load logged in user specific data from firebase
+
     firestack.database.ref(this.getFBRefName())
       .once('value')
       .then((snapshot) => {
@@ -50,6 +52,7 @@ export class HundredBox extends React.Component {
   componentWillMount() {
     const {firestack} = this.props;
 
+    // Check if user is currently logged in
     firestack.auth.getCurrentUser()
       .then(data => {
         this.setState({ user: data.user });
@@ -61,6 +64,8 @@ export class HundredBox extends React.Component {
   pushToServer() {
     const { firestack } = this.props;
     const { clicks } = this.state;
+
+    // Save box clicking status to firebase
     firestack.database.ref(this.getFBRefName())
       .set(clicks)
       .catch(() => alert('error happend'));
@@ -74,7 +79,7 @@ export class HundredBox extends React.Component {
         {
           user ?
             <BoxList
-              boxNumbers={10}
+              boxNumbers={100}
               data={this.state.clicks}
               onUpdate={this.updateData.bind(this)}
             />
