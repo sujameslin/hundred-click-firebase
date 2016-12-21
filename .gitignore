@@ -43,3 +43,4 @@ android/app/libs
 
 # Configuration
 config/development.js
+ios/GoogleService-Info.plist
