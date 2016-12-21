@@ -5,6 +5,7 @@ import {
   NativeModules
 } from 'react-native'
 
+import env from '../../../../config/environment';
 import { Container,
   Content, Card, CardItem,
   Thumbnail, Text,
@@ -21,12 +22,15 @@ export class SignedIn extends React.Component {
   }
 
   componentWillMount() {
-    const { firestack } = this.props;
+    const {firestack} = this.props;
   }
 
-  goHome(evt) {
+  signOut(evt) {
     const {firestack} = this.props;
-    alert('go home clicked');
+    firestack.auth.signOut();
+    if (this.props.onSignout) {
+      this.props.onSignout();
+    }
   }
 
   componentWillUnmount() {
@@ -49,11 +53,11 @@ export class SignedIn extends React.Component {
 
                   </Text>
                 <Button
-                  onPress={this.goHome.bind(this)}
+                  onPress={this.signOut.bind(this)}
                   block
                   primary
                   textStyle={{color: '#FFFFFF'}}>
-                    <Text>Go to home</Text>
+                    <Text>Sign out</Text>
                 </Button>
             </CardItem>
          </Card>

@@ -21,6 +21,7 @@ export class Signin extends React.Component {
     super(props);
 
     this.state = {
+      loading: true,
       user: null,
       email: '',
       password: ''
@@ -33,6 +34,11 @@ export class Signin extends React.Component {
     firestack.auth.listenForAuth((u) => {
       console.log('listenForAuth ->', u);
     });
+
+    firestack.auth.getCurrentUser()
+      .then(user => {
+        this.setState({ user });
+      });
   }
 
   gotoSignup() {
@@ -64,6 +70,14 @@ export class Signin extends React.Component {
     firestack.auth.unlistenForAuth();
   }
 
+  onSignout() {
+    this.setState({
+      user: null,
+      email: '',
+      password: ''
+    });
+  }
+
   render() {
     const {firestack} = this.props;
     const { user, email, password } = this.state;
@@ -72,6 +86,7 @@ export class Signin extends React.Component {
         <SignedIn
           user={user}
           firestack={firestack}
+          onSignout={this.onSignout.bind(this)}
         />
       )
     }

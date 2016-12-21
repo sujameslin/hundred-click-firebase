@@ -1,102 +1,88 @@
 import React from 'react';
 import {connect} from 'react-redux'
+import { ScrollView, Text } from 'react-native'
 
-import {
-  View,
-  ScrollView
-} from 'react-native'
-
-import { Text, Button, Icon } from 'native-base';
+import BoxList from './components/BoxList';
 
 import appStyles from '../../styles/app';
 
-const firebaseRefName = 'boxes';
+const firebaseRefBaseName = 'boxes';
 
 export class HundredBox extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      clicks: []
+      clicks: [],
+      user: null
     };
   }
 
-  updateData(key) {
-    const idx = this.state.clicks.indexOf(key);
+  getFBRefName() {
+    const { user } = this.state;
 
-    if (idx > -1) {
-      this.state.clicks.splice(idx, 1);
-    } else {
-      this.state.clicks.push(key)
-    }
+    return `${firebaseRefBaseName}/${user.uid}`;
+  }
 
+  updateData(data) {
     this.setState({
-      clicks: this.state.clicks
+      clicks: data
     });
 
     this.pushToServer();
   }
 
+  loadData() {
+    const {firestack} = this.props;
+
+    firestack.database.ref(this.getFBRefName())
+      .once('value')
+      .then((snapshot) => {
+        const data = snapshot.val();
+        if (data && data.length) {
+          this.setState({ clicks: data });
+        }
+      })
+      .catch(() => {
+        alert('fetch error');
+      });
+  }
+
   componentWillMount() {
     const {firestack} = this.props;
-    const ref = firestack.database.ref(firebaseRefName)
 
-    ref
-    //.orderByChild('createdAt')
-    //.limitToLast(1)
-    .once('value')
-    .then((snapshot) => {
-      const data = snapshot.val();
-      if (data && data.length) {
-        this.setState({ clicks: data });
-      }
-    })
-    .catch(() => {
-      alert('fetch error');
-    });
+    firestack.auth.getCurrentUser()
+      .then(data => {
+        this.setState({ user: data.user });
+        this.loadData();
+      })
+      .catch(err => console.log('not logged in'));
   }
 
   pushToServer() {
     const { firestack } = this.props;
     const { clicks } = this.state;
-    firestack.database.ref(firebaseRefName)
+    firestack.database.ref(this.getFBRefName())
       .set(clicks)
-      //.push()
-      //.then(ref => ref.setAt(clicks))
       .catch(() => alert('error happend'));
   }
 
-  getHundredBoxes() {
-    const boxes = [];
-    const { clicks } = this.state;
-
-    for (var idx = 0; idx < 15; idx++) {
-      const clicked = clicks.indexOf(idx) > -1;
-      let style = {marginTop: 5, marginBottom: 5, marginRight: 1};
-
-      if (clicked) {
-        style = Object.assign(style, {backgroundColor: '#384850'});
-      }
-
-      boxes.push(
-        <Button
-          style={style}
-          key={idx}
-          onPress={this.updateData.bind(this, idx)}>
-          { clicked
-            ? <Icon name='ios-checkmark-circle-outline' />
-            :  <Icon name='ios-close-circle-outline' /> }
-        </Button>
-      );
-    }
-
-    return boxes;
-  }
   render() {
+    const { user } = this.state;
+
     return (
-      <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap'}}>
-        {this.getHundredBoxes()}
-      </View>
+      <ScrollView>
+        {
+          user ?
+            <BoxList
+              boxNumbers={10}
+              data={this.state.clicks}
+              onUpdate={this.updateData.bind(this)}
+            />
+          :
+            <Text>You should login first</Text>
+        }
+
+      </ScrollView>
     )
   }
 }
