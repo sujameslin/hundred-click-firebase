@@ -33,6 +33,8 @@ export class HundredBox extends React.Component {
     this.setState({
       clicks: this.state.clicks
     });
+
+    this.pushToServer();
   }
 
   componentWillMount() {
@@ -51,12 +53,6 @@ export class HundredBox extends React.Component {
     .catch(() => {
       alert('fetch error');
     });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state !== prevState) {
-      this.pushToServer();
-    }
   }
 
   pushToServer() {
