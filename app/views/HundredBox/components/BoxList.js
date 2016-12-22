@@ -1,6 +1,19 @@
 import React from 'react';
-import { View } from 'react-native'
+import { View, StyleSheet, Dimensions } from 'react-native'
 import { Text, Button, Icon } from 'native-base';
+
+const { width, height } = Dimensions.get('window');
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap'
+  },
+  single: {
+    flexBasis: width / 10
+  }
+});
 
 export default class BoxList extends React.Component {
   onClick(key) {
@@ -21,7 +34,7 @@ export default class BoxList extends React.Component {
 
     for (var idx = 0; idx < boxNumbers; idx++) {
       const clicked = data.indexOf(idx) > -1;
-      let style = {marginTop: 5, marginBottom: 5, marginRight: 1};
+      let style = {marginTop: 5, marginBottom: 5};
 
       if (clicked) {
         style = Object.assign(style, {backgroundColor: '#384850'});
@@ -29,7 +42,7 @@ export default class BoxList extends React.Component {
 
       boxes.push(
         <Button
-          style={style}
+          style={StyleSheet.flatten([styles.single, style])}
           key={idx}
           onPress={this.onClick.bind(this, idx)}>
           { clicked
@@ -46,7 +59,7 @@ export default class BoxList extends React.Component {
     const { boxNumbers, data } = this.props;
 
     return (
-      <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap'}}>
+      <View style={styles.container}>
         {this.getHundredBoxes(boxNumbers, data)}
       </View>
     )
