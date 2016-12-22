@@ -7,7 +7,10 @@ import toList from './utils/toList'
 import appStyles from './styles/app';
 
 import Home from './views/Home';
+
+import Database, { Routes as DatabaseRoutes } from './views/Database';
 import Authentication, { Routes as AuthRoutes } from './views/Authentication';
+
 import HundredBox from './views/HundredBox';
 
 export type Route = {
@@ -23,6 +26,13 @@ export const exampleRoutes = {
       Component: Authentication
     },
     children: AuthRoutes
+  },
+  'database': {
+    route: {
+      title: 'Database',
+      Component: Database
+    },
+    children: DatabaseRoutes
   },
   'hundredbox': {
     route: {
